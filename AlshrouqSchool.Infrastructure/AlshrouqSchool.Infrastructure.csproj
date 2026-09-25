@@ -25,8 +25,4 @@
     <ProjectReference Include="..\AlshrouqSchool.Core\AlshrouqSchool.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>

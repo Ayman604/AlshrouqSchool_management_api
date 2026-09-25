@@ -26,7 +26,7 @@ public sealed class LiveKitService(AlshrouqDbContext db, IOptions<LiveKitOptions
         var now = DateTime.UtcNow;
         var expires = now.AddMinutes(settings.TokenLifetimeMinutes);
         var grant = JsonSerializer.Serialize(new { roomJoin = true, room, canPublish, canSubscribe = true });
-        var claims = new[] { new Claim(JwtRegisteredClaimNames.Sub, participantIdentity), new Claim("name", participantName), new Claim("video", grant, JsonClaimValueTypes.Json) };
+        var claims = new[] { new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub, participantIdentity), new Claim("name", participantName), new Claim("video", grant, System.IdentityModel.Tokens.Jwt.JsonClaimValueTypes.Json) };
         var signing = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.ApiSecret)), SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(settings.ApiKey, null, claims, now, expires, signing);
         return new(new JwtSecurityTokenHandler().WriteToken(token), expires);
