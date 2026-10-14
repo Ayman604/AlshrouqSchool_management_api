@@ -1,45 +1,31 @@
-using AlshrouqSchool.Api;
+using AlshrouqSchool.Api.Controllers;
+using AlshrouqSchool.Application.Features.Gallery.Mapping;
 using AlshrouqSchool.Core.Interfaces;
-using AlshrouqSchool.Infrastructure;
-using AlshrouqSchool.Infrastructure.Data;
-using AlshrouqSchool.Infrastructure.Repositories;
+using AlshrouqSchool.Domain.Contracts;
+using AlshrouqSchool.Presistence.Data.DbContexts;
+using AlshrouqSchool.Presistence.Repositories;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using MediatR;
+using AlshrouqSchool.Application.Features.Gallery.Behaviors;
 
 var builder = WebApplication.CreateBuilder(args);
-#region Register DI Container 
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers().AddApplicationPart(typeof(PostsController).Assembly);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddDbContext<AlshrouqDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddAppDI(builder.Configuration);
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IPostRepository, PostRepository>();
-builder.Services.AddScoped<IAcademicYearRepository, AcademicYearRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(typeof(GalleryMappingProfile).Assembly));
+builder.Services.AddAutoMapper(typeof(GalleryMappingProfile).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(GalleryMappingProfile).Assembly);
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-#endregion
 var app = builder.Build();
-
-#region Configure Pipeline [MiddleWares]
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+if (app.Environment.IsDevelopment()) { app.UseSwagger(); app.UseSwaggerUI(); }
+app.UseStaticFiles();
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.MapControllers(); 
-#endregion
-
-app.Run(); 
- 
+app.MapControllers();
+app.Run();

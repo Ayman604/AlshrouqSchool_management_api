@@ -1,5 +1,6 @@
 ﻿using AlshrouqSchool.Application.Academic.DTOs;
 using AlshrouqSchool.Core.Interfaces;
+using AlshrouqSchool.Domain.Entities.AcademicModule;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace AlshrouqSchool.Application.Academic.Queries
             //    .Select(a => new AcademicYearDto(a.Id, a.Name, a.StartsOn, a.EndsOn, a.IsCurrent))
             //    .ToListAsync(cancellationToken);
 
+           Task< List < AcademicYear >> academicYears = (Task<List<AcademicYear>>)await academicYearRepository.GetAllAsync();
             return (List<AcademicYearDto>)await academicYearRepository.GetAllAsync();
         }
 

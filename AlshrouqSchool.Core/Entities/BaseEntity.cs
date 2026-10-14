@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AlshrouqSchool.Core.Entities;
 
-public abstract class BaseEntity
+public abstract class BaseEntity<TKey>
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public TKey Id { get; set; } = default!;
     [Required]
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAtUtc { get; set; }

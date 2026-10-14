@@ -13,7 +13,7 @@ namespace AlshrouqSchool.Application.Posts.Commands
     public record AddPostCommand(CreatePostDto PostDto) :IRequest<PostDto>;
 
 
-    public class AddPostCommandHandler(IPostRepository postRepository) : IRequestHandler<AddPostCommand, PostDto>
+    public class AddPostCommandHandler(IPostRepository postRepository) : IRequestHandler<AddPostCommand, PostDto> // unit work not repository
     {
         public async Task<PostDto> Handle(AddPostCommand request, CancellationToken cancellationToken)
         {

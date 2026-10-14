@@ -1,15 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37614.0 d17.14
+VisualStudioVersion = 17.14.37614.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlshrouqSchool.Api", "AlshrouqSchool.Api\AlshrouqSchool.Api.csproj", "{F9722795-D2AF-4214-A8A4-8C560D624C54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlshrouqSchool.Application", "AlshrouqSchool.Application\AlshrouqSchool.Application.csproj", "{560E4DBA-E401-414D-8272-28B6BBEF6566}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlshrouqSchool.Services", "AlshrouqSchool.Application\AlshrouqSchool.Services.csproj", "{560E4DBA-E401-414D-8272-28B6BBEF6566}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlshrouqSchool.Core", "AlshrouqSchool.Core\AlshrouqSchool.Core.csproj", "{EA949733-AAD6-4279-8A0D-9379A452E596}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlshrouqSchool.Domain", "AlshrouqSchool.Core\AlshrouqSchool.Domain.csproj", "{EA949733-AAD6-4279-8A0D-9379A452E596}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlshrouqSchool.Infrastructure", "AlshrouqSchool.Infrastructure\AlshrouqSchool.Infrastructure.csproj", "{5B7AD157-713C-4CC3-8C0B-A21FB7CC1979}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlshrouqSchool.Persistence", "AlshrouqSchool.Infrastructure\AlshrouqSchool.Persistence.csproj", "{5B7AD157-713C-4CC3-8C0B-A21FB7CC1979}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlshrouqSchool.Shared", "AlshrouqSchool.Shared\AlshrouqSchool.Shared.csproj", "{F6A201ED-D823-4AFF-8119-798150E42875}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationLayer", "ApplicationLayer", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InfrastructureLayer", "InfrastructureLayer", "{CD5CE97F-D680-4D27-A92E-6DDD09D88BAC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationLayer", "PresentationLayer", "{F9CFBED3-AF1F-485C-AF9A-601BEA998D9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlshrouqSchool.Presentation", "AlshrouqSchool.Presentation\AlshrouqSchool.Presentation.csproj", "{C0BC4D10-6C39-415C-AE07-10663E4941EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlshrouqSchool.Services.Abstraction", "AlshrouqSchool.Services.Abstraction\AlshrouqSchool.Services.Abstraction.csproj", "{21F93FC7-1176-4B25-B07E-D408F4307642}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +45,29 @@ Global
 		{5B7AD157-713C-4CC3-8C0B-A21FB7CC1979}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B7AD157-713C-4CC3-8C0B-A21FB7CC1979}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B7AD157-713C-4CC3-8C0B-A21FB7CC1979}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A201ED-D823-4AFF-8119-798150E42875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A201ED-D823-4AFF-8119-798150E42875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A201ED-D823-4AFF-8119-798150E42875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A201ED-D823-4AFF-8119-798150E42875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0BC4D10-6C39-415C-AE07-10663E4941EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0BC4D10-6C39-415C-AE07-10663E4941EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0BC4D10-6C39-415C-AE07-10663E4941EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0BC4D10-6C39-415C-AE07-10663E4941EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21F93FC7-1176-4B25-B07E-D408F4307642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21F93FC7-1176-4B25-B07E-D408F4307642}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21F93FC7-1176-4B25-B07E-D408F4307642}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21F93FC7-1176-4B25-B07E-D408F4307642}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F9722795-D2AF-4214-A8A4-8C560D624C54} = {F9CFBED3-AF1F-485C-AF9A-601BEA998D9E}
+		{560E4DBA-E401-414D-8272-28B6BBEF6566} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{EA949733-AAD6-4279-8A0D-9379A452E596} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{5B7AD157-713C-4CC3-8C0B-A21FB7CC1979} = {CD5CE97F-D680-4D27-A92E-6DDD09D88BAC}
+		{C0BC4D10-6C39-415C-AE07-10663E4941EC} = {F9CFBED3-AF1F-485C-AF9A-601BEA998D9E}
+		{21F93FC7-1176-4B25-B07E-D408F4307642} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EA16C3A4-2ACD-4A1D-AE66-5BCD92D8DBD4}

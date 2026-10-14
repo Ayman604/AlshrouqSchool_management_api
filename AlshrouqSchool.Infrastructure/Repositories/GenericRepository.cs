@@ -1,5 +1,4 @@
-﻿using AlshrouqSchool.Core.Entities;
-using AlshrouqSchool.Infrastructure.Data;
+using AlshrouqSchool.Core.Entities;
 using AlshrouqSchool.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,39 +6,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using AlshrouqSchool.Presistence.Data.DbContexts;
 
 namespace AlshrouqSchool.Infrastructure.Repositories
 {
-    public class GenericRepository<TEntity>(AlshrouqDbContext db) : IGenericRepository<TEntity> where TEntity : class 
+    public class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
-        public async Task<TEntity> AddAsync(TEntity entity)
-        {
-           await db.Set<TEntity>().AddAsync(entity);
-            return entity;
-        }
-        public  async Task<bool> DeleteAsync(object Id)
-        {
-            var entity = await db.Set<TEntity>().FindAsync(Id);
-            if (entity == null)  return false;
-            db.Set<TEntity>().Remove(entity);
-            return true;
-        }
-        public async Task<IQueryable<TEntity>> GetAllAsync() 
-            => await Task.FromResult(db.Set<TEntity>().AsQueryable());
-        public async Task<TEntity?> GetByIdAsync(object Id)
-            => await db.Set<TEntity>().FindAsync(Id);
-        public async Task<TEntity?> UpdateAsync(object Id, TEntity UpdatedEntity)
-        {
-            var OldEntity = await db.Set<TEntity>().FindAsync(Id);
-            if (OldEntity == null) return null;
-            db.Entry(OldEntity).CurrentValues.SetValues(UpdatedEntity);
-            return UpdatedEntity;
+        private readonly AlshrouqDbContext _dbContext;
 
+        public GenericRepository(AlshrouqDbContext dbContext)
+        {
+            _dbContext = dbContext;
         }
 
+        public async Task AddAsync(TEntity entity)
+         => await _dbContext.Set<TEntity>().AddAsync(entity);
 
-        public async Task save() 
-            => await db.SaveChangesAsync();
-        
+
+        public void Delete(TEntity entity)
+        => _dbContext.Set<TEntity>().Remove(entity);
+
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+            => await _dbContext.Set<TEntity>().ToListAsync();
+
+        public async Task<TEntity?> GetByIdAsync(TKey Id)
+              => await _dbContext.Set<TEntity>().FindAsync(Id);
+
+        public void Update(TEntity entity)
+        => _dbContext.Set<TEntity>().Update(entity);
     }
 }

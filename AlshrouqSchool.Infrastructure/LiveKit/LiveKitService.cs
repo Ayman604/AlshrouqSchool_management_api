@@ -1,5 +1,4 @@
 using AlshrouqSchool.Application.Interfaces;
-using AlshrouqSchool.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.Extensions.Options;
@@ -8,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using AlshrouqSchool.Presistence.Data.DbContexts;
 
 namespace AlshrouqSchool.Infrastructure.LiveKit;
 
