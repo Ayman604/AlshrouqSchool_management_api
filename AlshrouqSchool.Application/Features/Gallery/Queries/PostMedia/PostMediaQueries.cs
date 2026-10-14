@@ -1,0 +1,4 @@
+using AlshrouqSchool.Domain.Contracts; using AlshrouqSchool.Domain.Entities.MediaAndContentModule; using AlshrouqSchool.Shared.DTOs.Gallery.PostMedia; using AutoMapper; using MediatR;
+namespace AlshrouqSchool.Application.Features.Gallery.Queries.PostMedia;
+public sealed record GetPostMediaQuery(int PostId):IRequest<List<PostMediaDto>>;
+public sealed class GetPostMediaQueryHandler(IUnitOfWork u,IMapper m):IRequestHandler<GetPostMediaQuery,List<PostMediaDto>>{public async Task<List<PostMediaDto>> Handle(GetPostMediaQuery r,CancellationToken ct){var media=(await u.GetRepository<Media,int>().GetAllAsync()).Where(x=>!x.IsDeleted).ToDictionary(x=>x.Id);var links=(await u.GetRepository<PostMedia,int>().GetAllAsync()).Where(x=>x.PostId==r.PostId&&media.ContainsKey(x.MediaId)).OrderBy(x=>x.DisplayOrder).ToList();foreach(var link in links)link.Media=media[link.MediaId];return m.Map<List<PostMediaDto>>(links);}}

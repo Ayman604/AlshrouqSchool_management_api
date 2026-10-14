@@ -1,0 +1,14 @@
+using AlshrouqSchool.Application.Features.Gallery.Commands.Posts; using AlshrouqSchool.Application.Features.Gallery.Queries.Posts; using AlshrouqSchool.Shared.DTOs.Gallery.Common; using AlshrouqSchool.Shared.DTOs.Gallery.Posts; using MediatR; using Microsoft.AspNetCore.Mvc;
+namespace AlshrouqSchool.Api.Controllers;
+[ApiController][Route("api/[controller]")] public sealed class PostsController(IMediator mediator):ControllerBase
+{
+ [HttpGet] public async Task<ActionResult<PagedResult<PostSummaryDto>>> GetAll([FromQuery] PostQueryParameters parameters,CancellationToken cancellationToken)=>Ok(await mediator.Send(new GetAllPostsQuery(parameters),cancellationToken));
+ [HttpGet("{id:int}")] public async Task<ActionResult<PostDto>> GetById([FromRoute]int id,CancellationToken cancellationToken){var result=await mediator.Send(new GetPostByIdQuery(id),cancellationToken);return result is null?NotFound():Ok(result);}
+ [HttpGet("slug/{slug}")] public async Task<ActionResult<PostDto>> GetBySlug([FromRoute]string slug,CancellationToken cancellationToken){var result=await mediator.Send(new GetPostBySlugQuery(slug),cancellationToken);return result is null?NotFound():Ok(result);}
+ [HttpGet("published")] public async Task<ActionResult<PagedResult<PostSummaryDto>>> GetPublished([FromQuery]PostQueryParameters parameters,CancellationToken cancellationToken)=>Ok(await mediator.Send(new GetPublishedPostsQuery(parameters),cancellationToken));
+ [HttpPost] public async Task<ActionResult<PostDto>> Create([FromBody]CreatePostDto dto,CancellationToken cancellationToken){var result=await mediator.Send(new CreatePostCommand(dto),cancellationToken);return CreatedAtAction(nameof(GetById),new{id=result.Id},result);}
+ [HttpPut("{id:int}")] public async Task<ActionResult<PostDto>> Update([FromRoute]int id,[FromBody]UpdatePostDto dto,CancellationToken cancellationToken)=>Ok(await mediator.Send(new UpdatePostCommand(id,dto),cancellationToken));
+ [HttpDelete("{id:int}")] public async Task<ActionResult<bool>> Delete([FromRoute]int id,CancellationToken cancellationToken)=>await mediator.Send(new DeletePostCommand(id),cancellationToken)?NoContent():NotFound();
+ [HttpPatch("{id:int}/publish")] public async Task<ActionResult<bool>> Publish([FromRoute]int id,[FromBody]PublishPostDto? dto,CancellationToken cancellationToken)=>await mediator.Send(new PublishPostCommand(id),cancellationToken)?Ok(true):NotFound();
+ [HttpPatch("{id:int}/unpublish")] public async Task<ActionResult<bool>> Unpublish([FromRoute]int id,CancellationToken cancellationToken)=>await mediator.Send(new UnpublishPostCommand(id),cancellationToken)?Ok(true):NotFound();
+}

@@ -1,0 +1,7 @@
+using AlshrouqSchool.Core.Entities;
+namespace AlshrouqSchool.Shared.DTOs.Gallery.Media;
+public sealed record MediaDto(int Id, string FileName, string FilePath, string MimeType, long FileSizeBytes, string? AltText, MediaType Type, MediaCategory Category, string UploadedByUserId);
+public sealed record MediaSummaryDto(int Id, string FileName, string FilePath, string? AltText, MediaType Type, MediaCategory Category);
+public sealed class CreateMediaDto { public string FileName { get; init; } = string.Empty; public string FilePath { get; init; } = string.Empty; public string MimeType { get; init; } = string.Empty; public long FileSizeBytes { get; init; } public string? AltText { get; init; } public MediaType Type { get; init; } public MediaCategory Category { get; init; } public string UploadedByUserId { get; init; } = string.Empty; }
+public sealed class UpdateMediaDto { public string FileName { get; init; } = string.Empty; public string FilePath { get; init; } = string.Empty; public string MimeType { get; init; } = string.Empty; public long FileSizeBytes { get; init; } public string? AltText { get; init; } public MediaType Type { get; init; } public MediaCategory Category { get; init; } }
+public sealed class MediaQueryParameters { public int PageNumber { get; init; } = 1; public int PageSize { get; init; } = 20; public MediaType? Type { get; init; } public MediaCategory? Category { get; init; } public string? Search { get; init; } }
